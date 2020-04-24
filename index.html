@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <title>Pomodoro!</title>
+    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.1.45/css/materialdesignicons.min.css">
     <link rel="stylesheet" href="css/style.css">
   </head>
   <body>
@@ -11,15 +12,19 @@
       <div class="options">
         <div class="session">
           <span class="options_label">SESSION</span>
-          <button class="decrease">-</button>
-          <span class="setpoint_session">25</span>
-          <button class="increase">+</button>
+          <div class="options_buttons">
+            <button class="decrease mdi mdi-minus-circle-outline"></button>
+            <span class="setpoint_session">25</span>
+            <button class="increase mdi mdi-plus-circle-outline"></button>
+          </div>
         </div>
         <div class="break">
           <span class="options_label">BREAK</span>
-          <button class="decrease">-</button>
-          <span class="setpoint_break">25</span>
-          <button class="increase">+</button>
+          <div class="options_buttons">
+            <button class="decrease mdi mdi-minus-circle-outline"></button>
+            <span class="setpoint_break">5</span>
+            <button class="increase mdi mdi-plus-circle-outline"></button>
+          </div>
         </div>
       </div>
       <div class="countdown">
@@ -27,8 +32,8 @@
         <div class="countdown_timer">25:00</div>
       </div>
       <div class="controls">
-        <button class="play-pause">Play</button>
-        <button class="stop">stop</button>
+        <button class="play-pause mdi mdi-play-pause"></button>
+        <button class="stop mdi mdi-stop"></button>
       </div>
     </div>
 
