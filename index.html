@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Pomodoro!</title>
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+    <h1>Pomodoro Timer</h1>
+    <div class="wrapper">
+      <div class="options">
+        <div class="session">
+          <span class="options_label">SESSION</span>
+          <button class="decrease">-</button>
+          <span class="setpoint_session">25</span>
+          <button class="increase">+</button>
+        </div>
+        <div class="break">
+          <span class="options_label">BREAK</span>
+          <button class="decrease">-</button>
+          <span class="setpoint_break">25</span>
+          <button class="increase">+</button>
+        </div>
+      </div>
+      <div class="countdown">
+        <span class="countdown_label">WORK</span>
+        <div class="countdown_timer">25:00</div>
+      </div>
+      <div class="controls">
+        <button class="play-pause">Play</button>
+        <button class="stop">stop</button>
+      </div>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
