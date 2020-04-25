@@ -76,6 +76,9 @@ button {
   font-size: 1.5rem;
   cursor: pointer;
 }
+.selected {
+  text-decoration: underline;
+}
 .play-pause, .stop {
   font-size: 3rem;
   margin: 1rem;

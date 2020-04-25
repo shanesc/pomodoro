@@ -33,12 +33,13 @@ function setSession() {
 }
 
 function changeSetpointValue(value, setpoint) {
-  // grab session or break node, increase or decrease value
-  if (setpoint === 'session') {
-    sessionSetpoint.textContent += value;
-  } else {
-    breakSetpoint.textContent += value;
-  }
+    const setpointValue = document.querySelector(`.setpoint_${setpoint}`);
+
+    if (setpointValue.textContent === '0') {
+        return;
+    } else {
+        setpointValue.textContent = +setpointValue.textContent + value;
+    }
 }
 
 const playPauseBtn = document.querySelector('.play-pause');
@@ -51,9 +52,29 @@ const breakSetpoint = document.querySelector('.setpoint_break');
 
 const sessionBtn = document.querySelector('.session_button');
 const breakBtn = document.querySelector('.break_button');
+sessionBtn.addEventListener('click', () => {
+    sessionBtn.classList.add('selected');
+    breakBtn.classList.remove('selected');
+});
+breakBtn.addEventListener('click', () => {
+    breakBtn.classList.add('selected');
+    sessionBtn.classList.remove('selected');
+});
 
-const increaseBtn = document.querySelectorAll('.increase');
-const decreaseBtn = document.querySelectorAll('.decrease');
+const increaseSessionBtn = document.querySelector('.increase_session');
+const decreaseSessionBtn = document.querySelector('.decrease_session');
+const increaseBreakBtn = document.querySelector('.increase_break');
+const decreaseBreakBtn = document.querySelector('.decrease_break');
+
+increaseSessionBtn.addEventListener('click', () => {changeSetpointValue(1, 'session')});
+decreaseSessionBtn.addEventListener('click', () => {changeSetpointValue(-1, 'session')});
+increaseBreakBtn.addEventListener('click', () => {
+  changeSetpointValue(1, 'break');
+});
+decreaseBreakBtn.addEventListener('click', () => {
+  changeSetpointValue(-1, 'break');
+});
+
 
 const sessionValue = +sessionSetpoint.textContent;
 const breakValue = +breakSetpoint.textContent;
