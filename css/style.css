@@ -48,7 +48,7 @@ h1 {
   font-weight: 300;
 }
 
-.setpoint_session, .setpoint_break {
+.setpoint_work, .setpoint_break {
   font-size: 2rem;
 }
 
@@ -58,6 +58,7 @@ h1 {
 
 .countdown_label {
   font-size: 2rem;
+  text-transform: uppercase;
 }
 .countdown_timer {
   font-size: 4rem;

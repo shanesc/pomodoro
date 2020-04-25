@@ -2,7 +2,7 @@
 function countdown() {
   timeRemaining--;
   if (timeRemaining > 0) {
-    console.log(timeRemaining);
+      updateTimer(timeRemaining);
   } else {
     console.log('finished');
     clearInterval(timer);
@@ -10,6 +10,7 @@ function countdown() {
 }
 
 function playPause() {
+  timeRemaining = getTime();
   if (play) {
     timer = setInterval(countdown, 1000);
   } else {
@@ -21,10 +22,11 @@ function playPause() {
 
 function stop() {
   //resets the timer variables
-  timeRemaining = time*60;
-  play = true;
+    timeRemaining = +workSetpoint.textContent*60;
+    play = true;
   // clearInterval timer
   clearInterval(timer);
+  updateTimer(timeRemaining);
   // update display and labels
 }
 
@@ -35,39 +37,65 @@ function setSession() {
 function changeSetpointValue(value, setpoint) {
     const setpointValue = document.querySelector(`.setpoint_${setpoint}`);
 
-    if (setpointValue.textContent === '0') {
+    if (setpointValue.textContent === '0'  && value === -1) {
         return;
     } else {
         setpointValue.textContent = +setpointValue.textContent + value;
     }
 }
 
+/* TIMER */
+const countdownTimer = document.querySelector('.countdown_timer');
+
+function getTime() {
+  let timeText = countdownTimer.textContent;
+  let textArr = timeText.split(':');
+  return textArr[0]*60 + Number(textArr[1]);
+}
+
+function updateTimer(timeRemaining) {
+    time = Math.floor(timeRemaining/60) + ':' + ('0' + timeRemaining%60).slice(-2);
+    countdownTimer.textContent = time;
+}
+
+/* BUTTONS LISTENERS */
+
 const playPauseBtn = document.querySelector('.play-pause');
 playPauseBtn.addEventListener('click', playPause);
 const stopBtn = document.querySelector('.stop');
 stopBtn.addEventListener('click', stop);
 
-const sessionSetpoint = document.querySelector('.setpoint_session');
+const workSetpoint = document.querySelector('.setpoint_work');
 const breakSetpoint = document.querySelector('.setpoint_break');
 
-const sessionBtn = document.querySelector('.session_button');
+const workBtn = document.querySelector('.work_button');
 const breakBtn = document.querySelector('.break_button');
-sessionBtn.addEventListener('click', () => {
-    sessionBtn.classList.add('selected');
+let selectedSession = 'work';
+workBtn.addEventListener('click', () => {
+    const workValue = +workSetpoint.textContent;
+    workBtn.classList.add('selected');
     breakBtn.classList.remove('selected');
+    selectedSession = 'work';
+    document.querySelector('.countdown_label').textContent = 'work';
+    countdownTimer.textContent = workValue + ':00';
 });
 breakBtn.addEventListener('click', () => {
+    const breakValue = +breakSetpoint.textContent;
     breakBtn.classList.add('selected');
-    sessionBtn.classList.remove('selected');
+    workBtn.classList.remove('selected');
+    selectedSession = 'break';
+    document.querySelector('.countdown_label').textContent = 'break';
+    countdownTimer.textContent = breakValue + ':00';
 });
 
-const increaseSessionBtn = document.querySelector('.increase_session');
-const decreaseSessionBtn = document.querySelector('.decrease_session');
+/* INCREASE/DECREASE SETPOINTS */
+const increaseWorkBtn = document.querySelector('.increase_work');
+const decreaseWorkBtn = document.querySelector('.decrease_work');
 const increaseBreakBtn = document.querySelector('.increase_break');
 const decreaseBreakBtn = document.querySelector('.decrease_break');
 
-increaseSessionBtn.addEventListener('click', () => {changeSetpointValue(1, 'session')});
-decreaseSessionBtn.addEventListener('click', () => {changeSetpointValue(-1, 'session')});
+increaseWorkBtn.addEventListener('click', () => {changeSetpointValue(1, 'work')});
+decreaseWorkBtn.addEventListener('click', () => {changeSetpointValue(-1, 'work')});
 increaseBreakBtn.addEventListener('click', () => {
   changeSetpointValue(1, 'break');
 });
@@ -76,10 +104,6 @@ decreaseBreakBtn.addEventListener('click', () => {
 });
 
 
-const sessionValue = +sessionSetpoint.textContent;
-const breakValue = +breakSetpoint.textContent;
-
-let time = sessionValue;
-let timeRemaining = time*60;
+let timeRemaining = getTime();
 let play = true;
 let timer;
