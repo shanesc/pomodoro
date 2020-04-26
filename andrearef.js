@@ -15,7 +15,7 @@ function playPause() {
   } else {
     clearInterval(timer);
   }
-  play = !play; 
+  play = !play;
 }
 
 function stop() {

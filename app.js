@@ -1,109 +1,137 @@
-
 function countdown() {
-  timeRemaining--;
-  if (timeRemaining > 0) {
-      updateTimer(timeRemaining);
+  countdownSession.lengthSeconds--;
+  if (countdownSession.lengthSeconds > 0) {
+    updateTimer(countdownSession.lengthSeconds);
   } else {
-    console.log('finished');
-    clearInterval(timer);
+    finishRound();
   }
 }
 
+function finishRound() {
+  clearInterval(timer);
+  if (countdownSession.type === 'work') {
+    countdownSession.count++;
+    countdownSession.type = 'break';
+  } else {
+    countdownSession.type = 'work';
+  }
+  if (countdownSession.count === 4) {
+    console.log('finish');
+    updateTimer(30);
+    countdownSession.count = 0;
+  }
+  setSession(countdownSession.type);
+  countdownSession.running = false;
+  document.querySelector('#sound').play();
+}
+
 function playPause() {
-  timeRemaining = getTime();
-  if (play) {
+  if (!countdownSession.running) {
     timer = setInterval(countdown, 1000);
   } else {
     clearInterval(timer);
   }
-  
-  play = !play; 
+  countdownSession.running = !countdownSession.running;
 }
 
 function stop() {
-  //resets the timer variables
-    timeRemaining = +workSetpoint.textContent*60;
-    play = true;
-  // clearInterval timer
+  if (countdownSession.type === 'work') {
+    updateTimer(workLengthMinutes);
+  } else if (countdownSession.type === 'break') {
+    updateTimer(breakLengthMinutes);
+  } else {
+    updateTimer(longBreakLengthMinutes);
+  }
+  countdownSession.running = false;
   clearInterval(timer);
-  updateTimer(timeRemaining);
-  // update display and labels
 }
 
-function setSession() {
-  // sets work or break depending on what user clicks
-}
-
-function changeSetpointValue(value, setpoint) {
-    const setpointValue = document.querySelector(`.setpoint_${setpoint}`);
-
-    if (setpointValue.textContent === '0'  && value === -1) {
-        return;
-    } else {
-        setpointValue.textContent = +setpointValue.textContent + value;
-    }
+function changeSetpointValue(value, setpoint) { 
+  const setpointValue = document.querySelector(`.setpoint_${setpoint}`);
+  if (setpointValue.textContent === '0'  && value === -1) {
+    return;
+  } else {
+    setpointValue.textContent = +setpointValue.textContent + value;
+  }
+  if (setpoint === 'work') {
+    workLengthMinutes += value;
+  } else if (setpoint === 'break') {
+    breakLengthMinutes += value;
+  } else {
+    longBreakLengthMinutes += value;
+  }
 }
 
 /* TIMER */
-const countdownTimer = document.querySelector('.countdown_timer');
 
-function getTime() {
-  let timeText = countdownTimer.textContent;
-  let textArr = timeText.split(':');
-  return textArr[0]*60 + Number(textArr[1]);
+function updateTimer(time) {
+  time = time * 60;
+  const countdownTimer = document.querySelector('.countdown_timer');
+  countdownSession.lengthSeconds = time;
+  countdownTimer.textContent = Math.floor(time/60) + ':' + ('0' + time%60).slice(-2);
 }
 
-function updateTimer(timeRemaining) {
-    time = Math.floor(timeRemaining/60) + ':' + ('0' + timeRemaining%60).slice(-2);
-    countdownTimer.textContent = time;
+function setSession(session = 'work') {
+  let value;
+  if (session === 'work') {
+    document.getElementById('work_button').classList.add('selected');
+    document.getElementById('break_button').classList.remove('selected');
+    document.getElementById('long-break_button').classList.remove('selected');
+    value = workLengthMinutes;
+  } else if (session === 'break') {
+    document.getElementById('work_button').classList.remove('selected');
+    document.getElementById('break_button').classList.add('selected');
+    document.getElementById('long-break_button').classList.remove('selected');
+    value = breakLengthMinutes;
+  } else {
+    document.getElementById('work_button').classList.remove('selected');
+    document.getElementById('break_button').classList.remove('selected');
+    document.getElementById('long-break_button').classList.add('selected');
+    value = longBreakLengthMinutes;
+  }
+  countdownSession.type = session;
+  document.querySelector('.countdown_label').textContent = session;
+  updateTimer(value);
 }
 
-/* BUTTONS LISTENERS */
+/* HELPER FUNCTION */
+function startActions(e) {
+  switch (e.target.id) {
+    case 'play_pause':
+      playPause();
+      break;
+    case 'stop':
+      stop();
+      break;
+    case 'increase':
+      i = e.target.parentNode.parentNode.id;
+      changeSetpointValue(1, i);
+      setSession(i);
+      break;
+    case 'decrease':
+      i = e.target.parentNode.parentNode.id;
+      changeSetpointValue(-1, i);
+      setSession(i);
+      break;
+    default:
+      setSession(e.target.parentNode.id);
+      stop();
+      break;
+   }
+}
 
-const playPauseBtn = document.querySelector('.play-pause');
-playPauseBtn.addEventListener('click', playPause);
-const stopBtn = document.querySelector('.stop');
-stopBtn.addEventListener('click', stop);
+/* BUTTONS LISTENER */
+const buttons = document.querySelectorAll('button');
+buttons.forEach(btn => btn.addEventListener('click', startActions));
 
-const workSetpoint = document.querySelector('.setpoint_work');
-const breakSetpoint = document.querySelector('.setpoint_break');
-
-const workBtn = document.querySelector('.work_button');
-const breakBtn = document.querySelector('.break_button');
-let selectedSession = 'work';
-workBtn.addEventListener('click', () => {
-    const workValue = +workSetpoint.textContent;
-    workBtn.classList.add('selected');
-    breakBtn.classList.remove('selected');
-    selectedSession = 'work';
-    document.querySelector('.countdown_label').textContent = 'work';
-    countdownTimer.textContent = workValue + ':00';
-});
-breakBtn.addEventListener('click', () => {
-    const breakValue = +breakSetpoint.textContent;
-    breakBtn.classList.add('selected');
-    workBtn.classList.remove('selected');
-    selectedSession = 'break';
-    document.querySelector('.countdown_label').textContent = 'break';
-    countdownTimer.textContent = breakValue + ':00';
-});
-
-/* INCREASE/DECREASE SETPOINTS */
-const increaseWorkBtn = document.querySelector('.increase_work');
-const decreaseWorkBtn = document.querySelector('.decrease_work');
-const increaseBreakBtn = document.querySelector('.increase_break');
-const decreaseBreakBtn = document.querySelector('.decrease_break');
-
-increaseWorkBtn.addEventListener('click', () => {changeSetpointValue(1, 'work')});
-decreaseWorkBtn.addEventListener('click', () => {changeSetpointValue(-1, 'work')});
-increaseBreakBtn.addEventListener('click', () => {
-  changeSetpointValue(1, 'break');
-});
-decreaseBreakBtn.addEventListener('click', () => {
-  changeSetpointValue(-1, 'break');
-});
-
-
-let timeRemaining = getTime();
-let play = true;
+/* GLOBAL VARIABLES */
+let workLengthMinutes = 25;
+let breakLengthMinutes = 5;
+let longBreakLengthMinutes = 30;
 let timer;
+const countdownSession = {
+  type: 'work',
+  lengthSeconds: 1500,
+  running: false,
+  count: 0
+}

@@ -10,6 +10,57 @@
     <h1>Pomodoro Timer</h1>
     <div class="wrapper">
       <div class="options">
+        <div id="work">
+          <button id="work_button" class="selected">WORK</button>
+          <div class="options_buttons">
+            <button id="decrease" class="mdi mdi-minus-circle-outline"></button>
+            <span class="setpoint_work">25</span>
+            <button id="increase" class="mdi mdi-plus-circle-outline"></button>
+          </div>
+        </div>
+        <div id="break">
+          <button id="break_button">BREAK</button>
+          <div class="options_buttons">
+            <button id="decrease" class="mdi mdi-minus-circle-outline"></button>
+            <span class="setpoint_break">5</span>
+            <button id="increase" class="mdi mdi-plus-circle-outline"></button>
+          </div>
+        </div>
+        <div id="long-break">
+          <button id="long-break_button">Long Break</button>
+          <div class="options_buttons">
+            <button id="decrease" class="mdi mdi-minus-circle-outline"></button>
+            <span class="setpoint_long-break">30</span>
+            <button id="increase" class="mdi mdi-plus-circle-outline"></button>
+          </div>
+        </div>
+      </div>
+      <div class="countdown">
+        <span class="countdown_label">work</span>
+        <div class="countdown_timer">25:00</div>
+      </div>
+      <div class="controls">
+        <button id="play_pause" class="mdi mdi-play-pause"></button>
+        <button id="stop" class="mdi mdi-stop"></button>
+      </div>
+    </div>
+    <audio id="sound" src="http://www.wavsource.com/snds_2020-03-30_7102365145747638/sfx/cuckoo_clock1_x.wav" type="audio/wav"></audio>
+    <script src="app.js"></script>
+  </body>
+</html>
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>Pomodoro!</title>
+    <link rel="stylesheet" href="https://cdn.materialdesignicons.com/5.1.45/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+    <h1>Pomodoro Timer</h1>
+    <div class="wrapper">
+      <div class="options">
         <div class="work">
           <button class="options_label selected work_button">WORK</button>
           <div class="options_buttons">
@@ -39,4 +90,4 @@
 
     <script src="app.js"></script>
   </body>
-</html>
+</html> -->

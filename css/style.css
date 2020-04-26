@@ -43,12 +43,12 @@ h1 {
   padding: 2rem;
 }
 
-.options_label {
+#work, #break, #long-break {
   font-size: 1.5rem;
   font-weight: 300;
 }
 
-.setpoint_work, .setpoint_break {
+.setpoint_work, .setpoint_break, .setpoint_long-break {
   font-size: 2rem;
 }
 
@@ -76,11 +76,12 @@ button {
   font-family: 'Montserrat', sans-serif;
   font-size: 1.5rem;
   cursor: pointer;
+  text-transform: uppercase;
 }
 .selected {
   text-decoration: underline;
 }
-.play-pause, .stop {
+#play_pause, #stop {
   font-size: 3rem;
   margin: 1rem;
   padding: 1rem;
