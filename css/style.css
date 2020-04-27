@@ -19,9 +19,6 @@ body {
   background: -webkit-linear-gradient(45.34deg, #FF1001 5.66%, #FF886A 63.4%, #FFE5BB 94.35%);
   background: linear-gradient(45.34deg, #FF1001 5.66%, #FF886A 63.4%, #FFE5BB 94.35%);
   font-family: 'Montserrat', sans-serif;
-}
-
-body {
   text-align: center;
 }
 
@@ -30,26 +27,38 @@ h1 {
   margin-bottom: 4rem;
 }
 
+button {
+  background: none;
+  border: none;
+  font-family: 'Montserrat', sans-serif;
+  font-size: inherit;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+
 .wrapper {
   border: 1px solid rgba(0,0,0,1);
   border-radius: 1rem;
   display: inline-block;
-  padding: 3rem;
+  padding: 3rem 12rem;
   background-color: #FF886A;
 }
 
+.options {
+  margin-bottom: 2rem;
+}
 
 .options > div {
   padding: 2rem;
 }
 
 #work, #break, #long-break {
-  font-size: 1.5rem;
+  font-size: 3rem;
   font-weight: 300;
 }
 
 .setpoint_work, .setpoint_break, .setpoint_long-break {
-  font-size: 2rem;
+  font-size: 4rem;
 }
 
 .options_buttons {
@@ -57,47 +66,88 @@ h1 {
 }
 
 .countdown_label {
-  font-size: 2rem;
+  /* margin-top: 2rem; */
+  display: inline-block;
+  font-size: 5rem;
   text-transform: uppercase;
+  margin-bottom: 1rem;
 }
 .countdown_timer {
-  font-size: 4rem;
-  font-weight: 600;
-  padding: 0.5rem;
+  font-size: 8rem;
+  font-weight: 400;
+  padding: 1rem 5rem;
   border: 1px solid rgba(0,0,0,1);
   border-radius: 1rem;
   background: rgba(255,255,255,0.2);
-  margin-top: 0.5rem;
+  /* margin-top: 1rem; */
+  margin-bottom: 1rem;
 }
 
-button {
-  background: none;
-  border: none;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 1.5rem;
-  cursor: pointer;
-  text-transform: uppercase;
-}
 .selected {
   text-decoration: underline;
 }
 #play_pause, #stop {
-  font-size: 3rem;
-  margin: 1rem;
+  font-size: 6rem;
+  margin: 2rem;
   padding: 1rem;
   border: 2px solid rgba(0,0,0,1);
   line-height: 1;
   border-radius: 50%;
 }
 
-
 /* FLEX LAYOUT */
 
 .options {
-  display: flex;
+  display: block;
 }
 
 .options_buttons {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
 }
+
+/* MEDIA QUERIES */
+
+@media (min-width: 992px) {
+  .wrapper {
+    padding: 3rem;
+  }
+  .countdown_label {
+    font-size: 2rem;
+    text-transform: uppercase;
+  }
+  .countdown_timer {
+    font-size: 4rem;
+    font-weight: 600;
+    padding: 0.5rem;
+    border: 1px solid rgba(0,0,0,1);
+    border-radius: 1rem;
+    background: rgba(255,255,255,0.2);
+
+  }
+
+  .options {
+    display: flex;
+  }
+  
+  .options_buttons {
+    display: flex;
+    justify-content: space-between;
+  }
+
+}
+
+/*Extra small devices (phones, 600px and down)
+@media only screen and (max-width: 600px) {...}
+
+Small devices (portrait tablets and large phones, 600px and up) 
+@media only screen and (min-width: 600px) {...}
+
+Medium devices (landscape tablets, 768px and up) 
+@media only screen and (min-width: 768px) {...}
+
+Large devices (laptops/desktops, 992px and up) 
+@media only screen and (min-width: 992px) {...}
+
+Extra large devices (large laptops and desktops, 1200px and up)
+@media only screen and (min-width: 1200px) {...} */

@@ -1,7 +1,7 @@
 function countdown() {
-  countdownSession.lengthSeconds--;
-  if (countdownSession.lengthSeconds > 0) {
-    updateTimer(countdownSession.lengthSeconds);
+  seconds--;
+  if (seconds > 0) {
+    updateTimer(seconds / 60);
   } else {
     finishRound();
   }
@@ -11,18 +11,21 @@ function finishRound() {
   clearInterval(timer);
   if (countdownSession.type === 'work') {
     countdownSession.count++;
+    console.log(countdownSession.count);
+    
     countdownSession.type = 'break';
   } else {
     countdownSession.type = 'work';
   }
   if (countdownSession.count === 4) {
     console.log('finish');
-    updateTimer(30);
+    updateTimer(longBreakMins);
     countdownSession.count = 0;
+    countdownSession.type = 'long-break';
   }
   setSession(countdownSession.type);
   countdownSession.running = false;
-  document.querySelector('#sound').play();
+  // document.querySelector('#sound').play();
 }
 
 function playPause() {
@@ -36,11 +39,11 @@ function playPause() {
 
 function stop() {
   if (countdownSession.type === 'work') {
-    updateTimer(workLengthMinutes);
+    updateTimer(workMins);
   } else if (countdownSession.type === 'break') {
-    updateTimer(breakLengthMinutes);
+    updateTimer(breakMins);
   } else {
-    updateTimer(longBreakLengthMinutes);
+    updateTimer(longBreakMins);
   }
   countdownSession.running = false;
   clearInterval(timer);
@@ -54,21 +57,21 @@ function changeSetpointValue(value, setpoint) {
     setpointValue.textContent = +setpointValue.textContent + value;
   }
   if (setpoint === 'work') {
-    workLengthMinutes += value;
+    workMins += value;
   } else if (setpoint === 'break') {
-    breakLengthMinutes += value;
+    breakMins += value;
   } else {
-    longBreakLengthMinutes += value;
+    longBreakMins += value;
   }
 }
 
 /* TIMER */
 
-function updateTimer(time) {
-  time = time * 60;
+function updateTimer(timeMins) {
+  timeSecs = timeMins * 60;
   const countdownTimer = document.querySelector('.countdown_timer');
-  countdownSession.lengthSeconds = time;
-  countdownTimer.textContent = Math.floor(time/60) + ':' + ('0' + time%60).slice(-2);
+  countdownSession.lengthSeconds = timeSecs;
+  countdownTimer.textContent = Math.floor(timeSecs/60) + ':' + ('0' + timeSecs%60).slice(-2);
 }
 
 function setSession(session = 'work') {
@@ -77,17 +80,17 @@ function setSession(session = 'work') {
     document.getElementById('work_button').classList.add('selected');
     document.getElementById('break_button').classList.remove('selected');
     document.getElementById('long-break_button').classList.remove('selected');
-    value = workLengthMinutes;
+    value = workMins;
   } else if (session === 'break') {
     document.getElementById('work_button').classList.remove('selected');
     document.getElementById('break_button').classList.add('selected');
     document.getElementById('long-break_button').classList.remove('selected');
-    value = breakLengthMinutes;
+    value = breakMins;
   } else {
     document.getElementById('work_button').classList.remove('selected');
     document.getElementById('break_button').classList.remove('selected');
     document.getElementById('long-break_button').classList.add('selected');
-    value = longBreakLengthMinutes;
+    value = longBreakMins;
   }
   countdownSession.type = session;
   document.querySelector('.countdown_label').textContent = session;
@@ -125,9 +128,9 @@ const buttons = document.querySelectorAll('button');
 buttons.forEach(btn => btn.addEventListener('click', startActions));
 
 /* GLOBAL VARIABLES */
-let workLengthMinutes = 25;
-let breakLengthMinutes = 5;
-let longBreakLengthMinutes = 30;
+let workMins = 25;
+let breakMins = 5;
+let longBreakMins = 30;
 let timer;
 const countdownSession = {
   type: 'work',
