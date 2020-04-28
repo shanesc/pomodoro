@@ -6,6 +6,8 @@ The [assignment outline](https://www.theodinproject.com/lessons/pairing-project#
 
 This assignment is to be done in pairs, using pair programming during the entire development. The purpose of this is to learn how to pair program and see some of the benefits and obstacles that come along with it.
 
+[View in browser](https://shanesc.github.io/pomodoro/)
+
 ## Authors
 - [Shane Mitchell](https://github.com/shanesc)
 - [Andrea Bianchi](https://github.com/andreaiaia)
