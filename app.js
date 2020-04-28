@@ -25,7 +25,7 @@ function finishRound() {
   }
   setSession(countdownSession.type);
   countdownSession.running = false;
-  // document.querySelector('#sound').play();
+  document.querySelector('#sound').play();
 }
 
 function playPause() {
