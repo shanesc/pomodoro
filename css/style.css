@@ -20,10 +20,11 @@ body {
   background: linear-gradient(45.34deg, #FF1001 5.66%, #FF886A 63.4%, #FFE5BB 94.35%);
   font-family: 'Montserrat', sans-serif;
   text-align: center;
+  font-size: 1.6rem;
 }
 
 h1 {
-  font-size: 5rem;
+  font-size: 8rem;
   margin-bottom: 4rem;
 }
 
@@ -40,7 +41,7 @@ button {
   border: 1px solid rgba(0,0,0,1);
   border-radius: 1rem;
   display: inline-block;
-  padding: 3rem 12rem;
+  padding: 4rem 12rem;
   background-color: #FF886A;
 }
 
@@ -53,41 +54,42 @@ button {
 }
 
 #work, #break, #long-break {
-  font-size: 3rem;
+  font-size: 5rem;
   font-weight: 300;
 }
 
 .setpoint_work, .setpoint_break, .setpoint_long-break {
-  font-size: 4rem;
+  font-size: 6rem;
+  width: 12rem;
 }
 
 .options_buttons {
+  font-size: 5rem;
   padding-top: 1rem;
 }
 
 .countdown_label {
-  /* margin-top: 2rem; */
   display: inline-block;
-  font-size: 5rem;
+  font-size: 6rem;
   text-transform: uppercase;
   margin-bottom: 1rem;
 }
 .countdown_timer {
-  font-size: 8rem;
+  font-size: 9rem;
   font-weight: 400;
-  padding: 1rem 5rem;
+  padding: 1rem 10rem;
   border: 1px solid rgba(0,0,0,1);
   border-radius: 1rem;
   background: rgba(255,255,255,0.2);
-  /* margin-top: 1rem; */
   margin-bottom: 1rem;
 }
 
 .selected {
   text-decoration: underline;
 }
+
 #play_pause, #stop {
-  font-size: 6rem;
+  font-size: 7rem;
   margin: 2rem;
   padding: 1rem;
   border: 2px solid rgba(0,0,0,1);
@@ -95,8 +97,40 @@ button {
   border-radius: 50%;
 }
 
-/* FLEX LAYOUT */
+#info {
+  font-size: 1.5rem;
+  padding: 5rem 7rem;
+  margin: auto;
+  width: 800px;
+}
 
+#info span {
+  display: block;
+  text-align: justify;
+  line-height: 1.4;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0,0,0, .1);
+  font-size: 3rem;
+  padding: .5rem 0;
+}
+
+footer span {
+  display: block;
+}
+
+a,
+a:visited {
+  color: rgb(228, 174, 174);
+  text-decoration: none;
+}
+
+/* FLEX LAYOUT */
 .options {
   display: block;
 }
@@ -107,47 +141,54 @@ button {
 }
 
 /* MEDIA QUERIES */
-
 @media (min-width: 992px) {
+  h1 {
+    font-size: 5rem;
+  }
+
   .wrapper {
     padding: 3rem;
   }
+
   .countdown_label {
     font-size: 2rem;
-    text-transform: uppercase;
   }
+
   .countdown_timer {
     font-size: 4rem;
     font-weight: 600;
     padding: 0.5rem;
-    border: 1px solid rgba(0,0,0,1);
-    border-radius: 1rem;
-    background: rgba(255,255,255,0.2);
-
   }
 
   .options {
     display: flex;
   }
-  
+
+  #work, #break, #long-break {
+    font-size: 2rem;
+    font-weight: 300;
+  }
+
+  .setpoint_work, .setpoint_break, .setpoint_long-break {
+    font-size: 3rem;
+    width: 6rem;
+  }
+
   .options_buttons {
-    display: flex;
-    justify-content: space-between;
+    font-size: 2rem;
+    justify-content: center;
+  }
+
+  #play_pause, #stop {
+    font-size: 4rem;
+  }
+
+  #info {
+    font-size: 2rem;
+  }
+
+  footer {
+    font-size: 2rem;
   }
 
 }
-
-/*Extra small devices (phones, 600px and down)
-@media only screen and (max-width: 600px) {...}
-
-Small devices (portrait tablets and large phones, 600px and up) 
-@media only screen and (min-width: 600px) {...}
-
-Medium devices (landscape tablets, 768px and up) 
-@media only screen and (min-width: 768px) {...}
-
-Large devices (laptops/desktops, 992px and up) 
-@media only screen and (min-width: 992px) {...}
-
-Extra large devices (large laptops and desktops, 1200px and up)
-@media only screen and (min-width: 1200px) {...} */
