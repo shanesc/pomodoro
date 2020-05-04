@@ -1,7 +1,7 @@
 function countdown() {
-  seconds--;
-  if (seconds > 0) {
-    updateTimer(seconds / 60);
+  countdownSession.lengthSeconds--;
+  if (countdownSession.lengthSeconds > 0) {
+    updateTimer(countdownSession.lengthSeconds / 60);
   } else {
     finishRound();
   }
